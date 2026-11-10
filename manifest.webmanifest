@@ -1,0 +1,17 @@
+{
+  "name": "PICO · identificación de frecuencias",
+  "short_name": "PICO",
+  "description": "Roguelite de identificación de frecuencias",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#141618",
+  "theme_color": "#141618",
+  "lang": "es",
+  "icons": [
+    { "src": "iconos/icono-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "iconos/icono-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "iconos/icono-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

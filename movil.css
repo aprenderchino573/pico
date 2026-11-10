@@ -1,0 +1,170 @@
+/* PICO — táctil y móvil en horizontal */
+
+/* ---------- táctil en general ---------- */
+html { -webkit-text-size-adjust: 100%; }
+body { -webkit-tap-highlight-color: transparent; overscroll-behavior: none; }
+button, .canal, .unidad, #eq, label.btn { touch-action: manipulation; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+#eq { touch-action: none; }
+#app { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
+
+/* controles del intervalo en la cabecera del EQ */
+.eq-cab { align-items: center; }
+.eq-ctrl { display: inline-flex; gap: 4px; margin-left: auto; margin-right: 10px; }
+.eq-ctrl button { min-width: 30px; height: 24px; padding: 0 8px; border-radius: 4px; cursor: pointer; font-family: var(--mono); font-size: 15px; line-height: 1;
+  background: linear-gradient(#34393e, #272b2f); border: 1px solid #45494e; color: var(--ambar); }
+.eq-ctrl button:active { background: #1c1f22; }
+
+/* ficha de comodín al tocar */
+.modal { position: fixed; inset: 0; z-index: 20; background: rgba(0,0,0,.6); display: grid; place-items: center; backdrop-filter: blur(2px); }
+.modal-caja { display: flex; gap: 14px; align-items: center; background: var(--panel); border: 1px solid #000; border-radius: 10px; padding: 14px; }
+.modal-botones { display: flex; flex-direction: column; gap: 8px; }
+
+/* aviso de girar */
+#girar { display: none; }
+@media (orientation: portrait) and (max-width: 600px) {
+  #girar { display: flex; position: fixed; inset: 0; z-index: 50; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+    background: var(--fondo); color: var(--ambar); font-family: var(--mono); text-align: center; padding: 30px; }
+  #girar div { font-size: 64px; animation: girar 2s ease-in-out infinite; }
+  @keyframes girar { 50% { transform: rotate(90deg); } }
+  #app { display: none; }
+}
+
+/* ---------- pantallas bajas: móvil en horizontal (~844×390) ---------- */
+@media (max-height: 520px) {
+  body { font-size: 12px; }
+  kbd { display: none; }
+  .btn { padding: 6px 10px; font-size: 11px; }
+  .btn.grande { padding: 9px 14px; font-size: 13px; }
+  .titulo { font-size: 15px; margin: 2px 0; }
+  .pantalla { padding: 14px 16px calc(14px + env(safe-area-inset-bottom)); gap: 10px; }
+  .menu { padding-top: 12px; }
+  .logo-q { font-size: 48px; }
+  .logo-pico { width: 220px; height: 30px; }
+  .menu-botones { width: auto; display: grid; grid-template-columns: repeat(3, minmax(170px, 1fr)); margin-top: 8px; }
+  .menu-botones .btn.ambar { grid-column: 1 / -1; }
+
+  /* consola: en la mesa todo cabe en una pantalla, sin scroll */
+  .consola.fase-ciega { height: 100vh; height: 100dvh; overflow: hidden; display: grid;
+    grid-template-columns: 172px auto 1fr; grid-template-rows: 46px 1fr; }
+  .consola.fase-ciega > .barra { grid-column: 1 / 3; grid-row: 1; }
+  .consola.fase-ciega > .rack { grid-column: 3; grid-row: 1; min-width: 0; }
+  .consola.fase-ciega > .cuerpo { grid-column: 1 / -1; grid-row: 2; min-height: 0; }
+  .consola.medicion { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+  .consola.medicion > .principal { min-height: 0; }
+
+  /* barra: solo manos, descartes, caja y menú */
+  .barra { gap: 8px; padding: 4px 8px; flex-wrap: nowrap; }
+  .barra .seg { font-size: 13px; padding: 2px 5px; }
+  .barra .lbl { font-size: 8px; letter-spacing: .06em; }
+  .barra .b-grupo { gap: 1px; }
+  .fase-ciega .barra .b-grupo:nth-child(1), .fase-ciega .barra .b-grupo:nth-child(2), .fase-ciega .barra .b-grupo:nth-child(3) { display: none; }
+  .barra .btn.peq { padding: 4px 6px; font-size: 10px; margin-left: auto; }
+
+  /* rack: iconos; se toca para ver la ficha */
+  .rack { padding: 4px 8px; gap: 6px; }
+  .rack-comodines { gap: 6px; grid-template-columns: repeat(5, 1fr); }
+  .unidad { min-height: 0; height: 38px; padding: 4px 6px; display: flex; align-items: center; cursor: pointer; }
+  .unidad .u-oreja, .unidad .u-desc, .unidad .u-vender, .unidad .u-mover, .unidad .u-led { display: none; }
+  .unidad .u-cab { gap: 6px; min-width: 0; }
+  .unidad .u-ico { width: 26px; height: 26px; font-size: 17px; }
+  .unidad .u-nombre { font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .unidad.vacia { height: 38px; font-size: 9px; }
+  .unidad.vacia span { display: none; }
+  .rack-consum { flex-direction: row; width: auto; gap: 6px; }
+  .consum { width: 54px; height: 38px; font-size: 9px; padding: 2px; }
+  .consum span { display: none; }
+  .consum .ico { font-size: 16px; }
+
+  /* columna izquierda: marcador compacto; niveles de zona fuera durante la ciega */
+  .niveles { display: flex; width: 172px; flex-shrink: 0; padding: 6px; gap: 6px; overflow-y: auto; }
+  .fase-ciega .niveles-zona { display: none; }
+  .marcador { padding: 7px; gap: 5px; }
+  .mc-ronda { gap: 3px; padding-bottom: 5px; }
+  .mc-fila .seg { font-size: 13px; padding: 2px 5px; }
+  .mc-fila:nth-child(2) .seg { font-size: 16px; }
+  .mc-fila .lbl { font-size: 8px; }
+  .progreso { height: 3px; }
+  .mc-mano { gap: 5px; }
+  .mc-zona { font-size: 10px; min-height: 12px; }
+  .mc-total { font-size: 22px; padding: 4px 0; }
+  .mc-caja { font-size: 16px; padding: 5px 2px; }
+  .mc-x { font-size: 14px; }
+  .mc-bits { font-size: 10px; } .mc-bits b { font-size: 11px; }
+  .mc-barra { height: 4px; }
+
+  /* mesa */
+  .principal { padding: 6px 8px calc(4px + env(safe-area-inset-bottom)); gap: 5px; min-height: 0; display: flex; flex-direction: column; }
+  .eq { padding: 5px 6px; flex: 1; min-height: 0; display: flex; flex-direction: column; }
+  .eq-cab { margin-bottom: 3px; gap: 6px; flex-wrap: nowrap; }
+  .eq-cab .lbl { font-size: 8px; }
+  .iv-info { font-size: 9px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+  .eq-ctrl { margin-right: 4px; }
+  .eq-ctrl button { min-width: 34px; height: 26px; font-size: 16px; }
+  #eq { height: auto; flex: 1; min-height: 110px; }
+  .eq-ayuda { display: none; }
+  .banner-jefe, .banner-descanso { padding: 3px 8px; font-size: 10px; }
+
+  /* canales: tiras compactas */
+  .canales { gap: 5px; min-height: 0; flex: 0 0 auto; }
+  .canal { flex-direction: row; max-width: none; padding: 4px; gap: 4px; align-items: stretch; height: 46px; }
+  .canal .led, .canal .medidor, .canal .c-zona { display: none; }
+  .canal .scribble { min-height: 0; padding: 3px 5px; justify-content: center; flex: 1; min-width: 0; }
+  .canal .scribble .ch { font-size: 9px; }
+  .canal .scribble .c-fuente { font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .canal .btn-marc { margin: 0; font-size: 9px; padding: 0 4px; writing-mode: vertical-rl; transform: rotate(180deg); }
+  .canal.marc .btn-marc { color: var(--rojo); }
+  .canal .c-zona:has(span) { display: flex; align-items: center; font-size: 9px; }
+  .master { width: auto; padding: 4px 8px; gap: 2px; flex-direction: row; }
+  .master .lbl, .master .vu { display: none; }
+  .eq-in { min-width: 64px; font-size: 9px; padding: 6px 6px; }
+
+  /* transporte y resultado */
+  .transporte { gap: 5px; flex-wrap: nowrap; flex: 0 0 auto; }
+  .transporte .btn { padding: 8px 9px; white-space: nowrap; }
+  .transporte .btn.ambar { margin-left: auto; padding: 8px 16px; font-size: 12px; }
+  .res-slot { min-height: 30px; flex: 0 0 auto; }
+  .resultado { padding: 3px 8px; gap: 3px; }
+  .res-linea { font-size: 11px; gap: 2px 8px; flex-wrap: nowrap; white-space: nowrap; overflow: hidden; }
+  .desglose { flex-wrap: nowrap; overflow-x: auto; font-size: 9px; scrollbar-width: none; }
+  .desglose .ln { flex-shrink: 0; padding: 0 6px; }
+  .medidor-h { display: none; }
+
+  /* resto de fases (previa, tienda, premio, fin): con scroll */
+  .consola:not(.fase-ciega) { min-height: 100dvh; }
+  .consola:not(.fase-ciega) .niveles { width: 190px; }
+  .consola:not(.fase-ciega) .niveles-zona .nivel { min-height: 34px; }
+  .cartas { gap: 8px; }
+  .carta { width: 190px; padding: 10px; gap: 6px; }
+  .carta-c { width: 150px; padding: 6px; gap: 4px; }
+  .cc-arte { height: 64px; font-size: 38px; }
+  .cc-nombre { font-size: 11px; } .cc-desc { font-size: 10px; }
+  .panel { width: auto; max-width: 420px; padding: 14px; gap: 8px; }
+
+  /* nueva partida */
+  .carrusel { gap: 10px; }
+  .baraja-grande { width: 480px; padding: 10px; gap: 12px; }
+  .bg-dorso { width: 76px; height: 106px; font-size: 40px; }
+  .bg-nombre { font-size: 15px; } .bg-desc { font-size: 11px; }
+  .flecha { width: 40px; height: 40px; font-size: 22px; }
+  .tira-niveles { gap: 5px; margin-top: 2px; }
+  .chip-nivel { padding: 5px 2px; }
+  .cn-num { font-size: 14px; } .chip-nivel .ico { font-size: 15px; }
+  .nivel-desc { font-size: 11px; } .nd-tit { font-size: 13px; }
+
+  /* ficha de comodín */
+  .modal-caja { padding: 10px; gap: 10px; }
+  .modal .carta-c { width: 170px; }
+  .modal .cc-arte { height: 80px; font-size: 46px; }
+  .modal .cc-desc { font-size: 11px; }
+  .metricas { grid-template-columns: repeat(4, 1fr); gap: 5px; }
+  .metricas b { font-size: 12px; }
+  .tabla { font-size: 10px; } .tabla th, .tabla td { padding: 3px 5px; }
+}
+@media (max-height: 520px) {
+  .pnueva { gap: 6px; padding-top: 8px; }
+  .pnueva .pie { display: none; }
+  .baraja-grande { padding: 8px; }
+  .bg-dorso { width: 64px; height: 90px; font-size: 34px; }
+  .chip-nivel { padding: 4px 2px; gap: 1px; }
+}
+@media (pointer: coarse) { .pie kbd, .pnueva .pie { display: none; } }
