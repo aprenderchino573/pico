@@ -790,7 +790,7 @@ function vCiega(r) {
       <section class="canales">${canales}</section>
       <footer class="transporte">
         <button class="btn" data-acc="alternar" ${!S.sel ? 'disabled' : ''}>${motor.sonando ? '■ Parar' : '▶ Escuchar'} <kbd>espacio</kbd></button>
-        <button class="btn" id="btn-bypass" ${prm.noBypass || !S.sel ? 'disabled' : ''}>Bypass <kbd>B</kbd> mantener</button>
+        <button class="btn" id="btn-bypass" ${prm.noBypass || !S.sel ? 'disabled' : ''}>Bypass <kbd>B</kbd> <span class="largo">mantener</span></button>
         <button class="btn rojo" data-acc="descartar" ${S.res || !S.marcadas.size || r.descartes <= 0 ? 'disabled' : ''}>Descartar ${S.marcadas.size || ''} <kbd>D</kbd></button>
         ${botonComparar()}
         ${S.res ? '<button class="btn ambar" data-acc="continuar">Continuar <kbd>↵</kbd></button>'
@@ -815,7 +815,7 @@ function vEQ(prm) {
 }
 
 function botonComparar() {
-  return `<button class="btn cian ${S.comparando ? 'activo' : ''}" data-acc="comparar" ${S.res ? '' : 'disabled'}>${S.comparando ? 'Solo el real' : 'Comparar con tu respuesta'} <kbd>C</kbd></button>`;
+  return `<button class="btn cian ${S.comparando ? 'activo' : ''}" data-acc="comparar" ${S.res ? '' : 'disabled'}>${S.comparando ? 'Solo el real' : 'Comparar<span class="largo"> con tu respuesta</span>'} <kbd>C</kbd></button>`;
 }
 function textoIv() {
   if (!S.iv) return 'sin intervalo';
@@ -931,7 +931,7 @@ function vMedicion() {
       <div class="principal">${vDescanso()}${vEQ(m.params)}
         <footer class="transporte">
           <button class="btn" data-acc="alternar">${motor.sonando ? '■ Parar' : '▶ Escuchar'} <kbd>espacio</kbd></button>
-          <button class="btn" id="btn-bypass">Bypass <kbd>B</kbd> mantener</button>
+          <button class="btn" id="btn-bypass">Bypass <kbd>B</kbd> <span class="largo">mantener</span></button>
           ${botonComparar()}
           ${S.res ? '<button class="btn ambar" data-acc="medContinuar">Siguiente <kbd>↵</kbd></button>'
                   : `<button class="btn ambar" id="btn-responder" data-acc="medResponder" ${!S.iv ? 'disabled' : ''}>Responder <kbd>↵</kbd></button>`}

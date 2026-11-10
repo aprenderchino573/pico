@@ -168,3 +168,57 @@ button, .canal, .unidad, #eq, label.btn { touch-action: manipulation; -webkit-us
   .chip-nivel { padding: 4px 2px; gap: 1px; }
 }
 @media (pointer: coarse) { .pie kbd, .pnueva .pie { display: none; } }
+
+/* ---------- móviles estrechos en horizontal (iPhone 6/7/8/SE: 667×375) ---------- */
+@media (max-height: 520px) and (max-width: 740px) {
+  .largo { display: none; }
+  .consola.fase-ciega { grid-template-columns: 116px auto 1fr; grid-template-rows: 40px 1fr; }
+  .niveles { width: 116px; padding: 4px; gap: 4px; }
+  .marcador { padding: 5px; gap: 3px; }
+  .mc-fila .seg { font-size: 11px; padding: 1px 3px; }
+  .mc-fila:nth-child(2) .seg { font-size: 13px; }
+  .mc-fila .lbl { font-size: 7px; letter-spacing: .03em; }
+  .mc-total { font-size: 17px; padding: 2px 0; }
+  .mc-caja { font-size: 13px; padding: 3px 1px; }
+  .mc-x { font-size: 11px; }
+  .mc-bits, .mc-zona { font-size: 9px; }
+
+  .barra { gap: 5px; padding: 3px 5px; }
+  .barra .seg { font-size: 11px; padding: 1px 3px; }
+  .barra .lbl { font-size: 7px; }
+  .barra .btn.peq { padding: 3px 5px; font-size: 9px; }
+  .rack { padding: 3px 5px; gap: 4px; }
+  .rack-comodines { gap: 3px; }
+  .unidad, .unidad.vacia { height: 32px; padding: 2px 3px; }
+  .unidad .u-nombre { display: none; }
+  .unidad .u-cab { justify-content: center; width: 100%; }
+  .unidad .u-ico { width: 24px; height: 24px; font-size: 15px; }
+  .consum { width: 34px; height: 32px; }
+
+  .principal { padding: 4px 5px calc(3px + env(safe-area-inset-bottom)); gap: 4px; }
+  .eq { padding: 3px 4px; }
+  .eq-ctrl button { min-width: 30px; height: 24px; font-size: 15px; padding: 0 6px; }
+  #eq { min-height: 90px; }
+
+  .canales { gap: 3px; }
+  .canal { flex: 1 1 0; min-width: 0; height: 40px; padding: 3px; gap: 2px; }
+  .canal .scribble { padding: 2px 3px; }
+  .canal .scribble .ch { font-size: 8px; }
+  .canal .scribble .c-fuente { font-size: 9px; }
+  .canal .btn-marc { font-size: 8px; padding: 0 2px; }
+  .master { flex: 0 0 auto; padding: 3px 4px; }
+  .eq-in { min-width: 0; font-size: 8px; padding: 4px 4px; }
+
+  .transporte { gap: 4px; }
+  .transporte .btn { padding: 7px 7px; font-size: 10px; }
+  .transporte .btn.ambar { padding: 7px 12px; font-size: 11px; }
+  .res-slot { min-height: 26px; }
+  .res-linea { font-size: 10px; }
+
+  .consola:not(.fase-ciega) .niveles { width: 150px; }
+  .carta { width: 160px; }
+  .carta-c { width: 130px; }
+  .baraja-grande { width: 420px; }
+  .menu-botones { grid-template-columns: repeat(2, minmax(150px, 1fr)); }
+  .modal .carta-c { width: 150px; }
+}

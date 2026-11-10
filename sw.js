@@ -1,6 +1,6 @@
 // PICO — service worker: funciona sin conexión.
 // Red primero (así las actualizaciones de GitHub llegan en cuanto hay conexión) y caché como respaldo.
-const CACHE = 'pico-v2';
+const CACHE = 'pico-v3';
 const ARCHIVOS = [
   './', 'index.html', 'estilo.css', 'movil.css', 'main.js', 'contenido.js', 'audio.js', 'stats.js', 'iconos.js', 'almacen.js',
   'manifest.webmanifest', 'fuentes/DSEG7Classic-Bold.woff2', 'fuentes/DSEG14Classic-Bold.woff2',
